@@ -10,12 +10,15 @@ var readBitmapFile = function(filename){
         var sizeBitmapFile = buffer.readUInt32LE(2);
         var startPixelsArray = buffer.readUInt32LE(10);
         var numColorsInPalete = buffer.readUInt32LE(46);
+
+        var startPaletteArray = startPixelsArray - (numColorsInPalete*4);
+
         console.log(sizeBitmapFile);
         console.log(startPixelsArray);
         console.log(numColorsInPalete);
 
         //for(var i = startPixelsArray; i <= startPixelsArray + numColorsInPalete; i++){
-        for(var i = 54; i <= 54 + numColorsInPalete; i++){
+        for(var i = startPaletteArray; i <= startPixelsArray; i++){
             buffer[i] = 255 - buffer[i];
         }
 
