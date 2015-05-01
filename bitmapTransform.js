@@ -19,10 +19,15 @@ var readBitmapFile = function(filename){
 
         //for(var i = startPixelsArray; i <= startPixelsArray + numColorsInPalete; i++){
         for(var i = startPaletteArray; i <= startPixelsArray; i++){
-            buffer[i] = 255 - buffer[i];
+            buffer[i] = Math.floor((Math.random() * 255) + 1); 
+            // - buffer[i];
         }
 
-        fs.writeFile('./invertColor.bmp', buffer);
+        // for (var i = startPixelsArray; i <= sizeBitmapFile; i++) {
+        //     buffer[i] += 1
+        // }
+
+        fs.writeFile('./random.bmp', buffer);
     });
 }
 
