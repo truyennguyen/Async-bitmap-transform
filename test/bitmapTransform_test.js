@@ -1,8 +1,8 @@
 'use strict';
 var fs = require('fs');
-var BitmapData = require('../bitmapData');
-var createInvertColors = require('../createInvertColorsBitmap');
-var createNoiseBitmap = require('../createNoiseBitmap');
+var BitmapData = require('../lib/bitmapHeaderInfo');
+var createInvertColors = require('../lib/createInvertColorsBitmap');
+var createNoiseBitmap = require('../lib/createNoiseBitmap');
 
 var expect = require('chai').expect;
 var pickTransform = require('../bitmapTransform');

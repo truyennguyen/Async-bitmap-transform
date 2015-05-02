@@ -1,26 +1,26 @@
 'use strict';
 var fs = require('fs');
-var BitmapData = require('./bitmapData');
+var BitmapHeaderInfo = require('./lib/bitmapHeaderInfo');
+var createInvertColors = require('./lib/createInvertColorsBitmap');
+var createNoiseBitmap = require('./lib/createNoiseBitmap');
 
-var createInvertColors = require('./createInvertColorsBitmap');
-var createNoiseBitmap = require('./createNoiseBitmap');
+var filename = './input_bitmap/bitmap1.bmp';
+var tempBuffer = new Buffer(50000);
 
 //pick one of the transforms above.  You can pass in an optional for the randomcolorsbitmap to adjust the look of the bitmap
 var pickTransform = module.exports = exports = function(transform, optional) {
+	fs.readFile(filename, function(err, buffer){
+		if (err) throw err;
 
-var readBitmapFile = function(filename){
-    fs.readFile(filename, function(err, buffer){
-        if (err) throw err;
-        //Initialize the bitmap data
-        var bitmapData = new BitmapData(buffer);
-        //Start the bitmap transformations
-        pickTransform.beforeTest = buffer[500];
-        transform(buffer, bitmapData, optional);
-        pickTransform.afterTest = buffer[500];
-    });
-};
-readBitmapFile('./bitmap1.bmp');
-};
+		//Initialize the bitmap header info
+		var bitmapHeaderInfo = new BitmapHeaderInfo(buffer);
+
+		//Start the bitmap transformations
+		pickTransform.beforeTest = buffer[500];
+		transform(buffer, bitmapHeaderInfo, optional);
+		pickTransform.afterTest = buffer[500];
+	});
+}
 
 //pickTransform needs to initalize here for the testing file to work. 
 pickTransform(createInvertColors);
