@@ -16,12 +16,10 @@ var pickTransform = module.exports = exports = function(transform, optional) {
 		var bitmapHeaderInfo = new BitmapHeaderInfo(buffer);
 
 		//Start the bitmap transformations
-		pickTransform.beforeTest = buffer[500];
 		transform(buffer, bitmapHeaderInfo, optional);
-		pickTransform.afterTest = buffer[500];
 	});
-}
+};
 
-//pickTransform needs to initalize here for the testing file to work. 
+//pickTransform initialization examples:
 pickTransform(createInvertColors);
 pickTransform(createNoiseBitmap, 1000);
