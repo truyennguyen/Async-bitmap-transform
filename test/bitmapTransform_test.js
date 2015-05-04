@@ -1,19 +1,20 @@
 'use strict';
+
 var fs = require('fs');
-var BitmapData = require('../lib/bitmapHeaderInfo');
-var createInvertColors = require('../lib/createInvertColorsBitmap');
-var createNoiseBitmap = require('../lib/createNoiseBitmap');
-
 var expect = require('chai').expect;
-var pickTransform = require('../bitmapTransform');
+var BitmapHeaderInfo = require('../lib/bitmapHeaderInfo');
 
-describe('pickTransform', function() {
-	it('before the transform', function() {
-		expect(pickTransform.beforeTest).to.eql(0);
-		console.log(pickTransform.beforeTest);
-	});
-	it('after the transform', function() {
-		expect(pickTransform.afterTest).to.be.above(0).and.below(256);
-		console.log(pickTransform.afterTest);
+var inputBuffer = fs.readFileSync('./input_bitmap/bitmap1.bmp');
+var outputBuffer = fs.readFileSync('./output_bitmap/noiseBitmap.bmp');
+var bitmapHeaderInfo = new BitmapHeaderInfo(inputBuffer);
+
+describe('Noise Color Transform', function(){
+	it('input should not equal output', function(){
+		var input = inputBuffer[2000];
+		var output = outputBuffer[2000];
+		expect(input).to.be.eql(28);
+		console.log("input= " + input);
+		expect(output).to.be.not.eql(input);
+		console.log("output= " + output);
 	});
 });
